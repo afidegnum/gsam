@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>regions</title>
+</head>
+<body>
+    <ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <h1> Roles </h1>
+    {% for items in names  %}
+    <li>{{ items }}</li>
+    {% endfor %}
+
+    {# a comment #}
+</body>
+</html>
