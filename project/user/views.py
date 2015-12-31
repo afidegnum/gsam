@@ -10,15 +10,13 @@ from . import user as user_blueprint
 from project.models import Role, User
 from project.user.forms import RegisterForm
 
-print "B:UEPPPP!! {}".format(user_blueprint)
+# print "B:UEPPPP!! {}".format(user_blueprint)
 
 
 # line modified by: takwas
 @user_blueprint.route('/roles/')
 def roles():
-    # names = [name for name, in db.session.query(Role.name).all()]
-    names = "Welcome to Gsam"
-    print "fine"
+    names = [name for name, in db.session.query(Role.name).all()]
     return render_template('front/roles.html', names=names)
 
 # line modified by: takwas

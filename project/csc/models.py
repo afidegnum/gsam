@@ -32,6 +32,12 @@ class CSCommunity(db.Model):
     facilitators = db.Column(db.Integer, db.ForeignKey('user.id')) # or add plain
     subgroup = db.Column(db.Text)
     meeting_date = db.Column(db.DateTime)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, name, district, key_leaders, facilitators, subgroup, meeting_date):
         self.name = name
@@ -44,13 +50,18 @@ class CSCommunity(db.Model):
 class CSinput(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    location = db.Column(db.Integer, db.ForeignKey('location.id'))
     submit_from = db.Column(db.String(25))
     beneficiaries = db.Column(db.String(100))
     indicators = db.Column(db.String(255))
     entitlement = db.Column(db.String(255))
     actuals = db.Column(db.String(255))
     remark = db.Column(db.String(300))
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, name, location, submit_from, beneficiaries, indicators, entitlement, actuals, remark):
         self.name = name
@@ -67,10 +78,15 @@ class CSinput(db.Model):
 class CSPerformance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    location = db.Column(db.Integer, db.ForeignKey('location.id'))
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
     indicator = db.Column(db.Text)
     score = db.Column(db.String)
-    six_month = db.Column(db.String(100))
+    six_month = db.Column(db.Textg(100))
     year = db.Column(db.String(100))
     reasons_for_change = db.Column(db.Text)
 
@@ -89,6 +105,12 @@ class SelfEvaluation(db.Model):
     performance_criteria = db.Column(db.Text)
     score = db.Column(db.SmallInteger)
     reasons = db.Column(db.Text)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, name, performance_criteria, score, reasons):
         self.name = name
@@ -99,9 +121,15 @@ class SelfEvaluation(db.Model):
 class ActionPlan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     improvement = db.Column(db.Text)
-    who = db.Column(db.String(300))
+    who = db.Column(db.Column(db.Text))
     when = db.Column(db.String(300))
     proposed_actions = db.Column(db.Text)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, improvement, who, when, proposed_actions):
         self.improvement = improvement

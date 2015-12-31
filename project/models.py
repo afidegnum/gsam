@@ -2,7 +2,8 @@ from project import db
 from datetime import datetime
 from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from project.location.models import Village
+from project.deliverables.models import Activity
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -10,7 +11,7 @@ class Role(db.Model):
     name = db.Column(db.String(20), index=True)
     front  = db.Column(db.Boolean, default=True)
     #permissions = db.relationship('Permission', backref='permission')
-    users = db.relationship('Users', backref='roles')
+    users = db.relationship('User', backref='roles')
 
     def __init__(self, name, front):
         self.name = name
@@ -30,7 +31,12 @@ class User(UserMixin, db.Model):
     phone = db.Column(db.String(15))
     email = db.Column(db.String(70), nullable=False, index=True, unique=True)
     address = db.Column(db.Text)
-    location = db.Column(db.Integer, db.ForeignKey('villages.id'))
+
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+
     picture = db.Column(db.String(255))
     role = db.Column(db.Integer, db.ForeignKey('roles.id'))
     activation = db.Column(db.String(250))
@@ -38,6 +44,10 @@ class User(UserMixin, db.Model):
     created_date = db.Column(db.DateTime, default=datetime.now())
     last_login = db.Column(db.DateTime)
     retries = db.Column(db.Integer)
+    remarks = db.relationship('Remark', backref='users', lazy='dynamic')
+    projects = db.relationship('Project', backref='users', lazy='dynamic')
+    activities_posts = db.relationship('Activity', backref='users', lazy='dynamic')
+    # facilitator = db.relationship("Community", back_populates="user")
 
     def __init__(self,  username, title, first_name, last_name, other_name, password, phone, email, address, location, picture, role, activation, active, created_date, last_login, retries):
         self.username = username

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>regions</title>
+    <title>CrCards</title>
 </head>
 <body>
     <ul id="navigation">
@@ -11,11 +11,10 @@
     </ul>
 
     <h1> Roles </h1>
-    {% for items in names  %}
-    <li>{{ items.name }}</li>
+    {% for items in form  %}
+    <li>{{ items }}</li>
     {% endfor %}
 
     {# a comment #}
-{{ names }}
 </body>
 </html>

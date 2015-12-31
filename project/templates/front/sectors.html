@@ -1,0 +1,8 @@
+{% from 'front/_formtool.html' import render_field %}
+<form method="post" >
+    <dl>
+        {{ render_field(form.name) }}
+    </dl>
+    <p><input type="submit" value="Add"></p>
+</form>
+<div>{{ sectors }}</div>

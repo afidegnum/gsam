@@ -4,6 +4,7 @@ from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from project import db, app
 from project.models import Role
+from project.deliverables.models import Sector
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -24,17 +25,31 @@ def wipe_them():
 
 
 @manager.command
-def add_roles(name='name'):
-    name = Role(name)
-    name.db.session.add(name)
-    name.db.session.commit()
-
+def add_roles(name):
+    name = Role(name=name, front='Y')
+    db.session.add(name)
+    db.session.commit()
+    names = [name for name, in db.session.query(Role.name).all()]
+    return names
 
 @manager.command
-def del_roles():
-    name = Role(name='name')
-    name.db.session.delete(name)
-    name.db.session.commit()
+def del_roles(name):
+    name = Role(name=name)
+    db.session.delete(name)
+    db.session.commit()
+    names = [name for name, in db.session.query(Role.name).all()]
+    return names
+
+@manager.command
+def add_sectors(name):
+    name = Sector(name=name)
+    db.session.add(name)
+    db.session.commit()
+    sectors = [name for name, in db.session.query(Sector.name).all()]
+    return sectors
+
+
+
 
 
 if __name__ == '__main__':

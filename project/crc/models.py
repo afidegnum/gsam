@@ -5,11 +5,13 @@ class CrC(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text)
-    service_target = db.Column(db.Integer, db.ForeignKey('sector.id'))
+    service_target = db.Column(db.Integer, db.ForeignKey('sectors.id'))
     service_scope = db.Column(db.Text)
     purpose_of_study = db.Column(db.Text)
-    service_aspect = db.Column(db.Integer, db.ForeignKey('aspect.id'))
+    service_aspect = db.Column(db.Integer, db.ForeignKey('aspects.id'))
     date = db.Column(db.DateTime)
+    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
     def __init__(self, title, description, service_target, purpose_of_study, service_aspect):
         self.title = title
@@ -22,13 +24,19 @@ class Community(db.Model):
     __tablename__ = 'communities'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
-    district = db.Column(db.Integer, db.ForeignKey('location.id'))
     key_leaders = db.Column(db.Text)
-    facilitators = db.Column(db.Integer, db.ForeignKey('user.id')) # or add plain
+    facilitators_id = db.Column(db.Integer, db.ForeignKey('users.id')) # or add plain
+    facilitators = db.relationship("User")
     subgroup = db.Column(db.Text)
     min_age = db.Column(db.Integer)
     max_age = db.Column(db.Integer)
     meeting_date = db.Column(db.DateTime)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, name, district, key_leaders, facilitators, subgroup, min_age, max_age, meeting_date):
         self.name = name
@@ -44,11 +52,11 @@ class Community(db.Model):
 class BasicQuestion(db.Model):
     __tablename__ = 'basic_questions'
     id = db.Column(db.Integer, primary_key=True)
-    investigator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    investigator = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(150))
-    gender = db.Column(db.String(2))
+    gender = db.Column(db.String(7))
     location = db.Column(db.Integer, primary_key=True)
-    family_type = db.Column(db.String(10))
+    family_type = db.Column(db.String(20))
     male_adults = db.Column(db.Integer)
     female_adults = db.Column(db.Integer)
     male_children = db.Column(db.Integer)
@@ -58,6 +66,12 @@ class BasicQuestion(db.Model):
     traders = db.Column(db.Integer)
     monthly_income = db.Column(db.Float)
     date = db.Column(db.DateTime)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, investigator, name, gender, location, family_type, male_adults, female_adults, male_children, female_children, employed, students, traders, monthly_income, date):
         self.investigator = investigator
@@ -98,11 +112,17 @@ class Questions(db.Model):
 class Answer(db.Model):
     __tablename__ = 'answers'
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Integer, db.ForeignKey('question.id'))
+    question = db.Column(db.Integer, db.ForeignKey('questions.id'))
     plain = db.Column(db.String(255), nullable=True)
     numeric = db.Column(db.Integer, nullable=True)
     yesno = db.Column(db.Boolean, nullable=True)
     rate = db.Column(db.Integer)
+    #---------------------------
+    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
+    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
+    #------------------------------------
 
     def __init__(self, question, plain, numeric, yesno, rate):
         self.question = question
