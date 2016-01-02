@@ -2,8 +2,6 @@ from flask.ext.wtf.file import FileRequired, FileAllowed, FileField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from project.location.models import Region, District, Subdistrict, Village
 from flask.ext.uploads import UploadSet, IMAGES, DOCUMENTS
-
-__author__ = 'afidegnum'
 from flask_wtf import Form
 from wtforms.validators import DataRequired, NumberRange
 from . models import Sector, Project, Activity
@@ -18,25 +16,25 @@ class SectorForm(Form):
 
 
 def sector_lists():
-    return db.session.query(Sector.name)
+    return db.session.query(Sector)
 
 def region_lists():
-    return db.session.query(Region.region)
+    return db.session.query(Region)
 
 def district_lists():
-    return db.session.query(District.district)
+    return db.session.query(District)
 
 def sub_districts():
-    return db.session.query(Subdistrict.subdistrict)
+    return db.session.query(Subdistrict)
 
 def villages_lists():
-    return db.session.query(Village.village)
+    return db.session.query(Village)
 
 def project_lists():
-    return db.session.query(Project.title)
+    return db.session.query(Project)
 
 def activity_lists():
-    return db.session.query(Activity.title)
+    return db.session.query(Activity)
 
 images = UploadSet('images', IMAGES)
 
@@ -44,11 +42,11 @@ images = UploadSet('images', IMAGES)
 class ProjectForm(Form):
     title = StringField('Project Name', validators=[DataRequired()])
     description = TextAreaField('Project Details', validators=[DataRequired()])
-    sector = QuerySelectField(get_label='Service Sector', query_factory=sector_lists)
-    regions = QuerySelectField(get_label='Regions', query_factory=region_lists)
-    district = QuerySelectField(get_label='Regions', query_factory=district_lists)
-    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts)
-    village = QuerySelectField(get_label='Village', query_factory=villages_lists)
+    sector = QuerySelectField(get_label='name', query_factory=sector_lists)
+    regions = QuerySelectField(get_label='region', query_factory=region_lists)
+    district = QuerySelectField(get_label='district', query_factory=district_lists)
+    subdistrict = QuerySelectField(get_label='subdistrict', query_factory=sub_districts)
+    village = QuerySelectField(get_label='village', query_factory=villages_lists)
     baseline = TextAreaField('Baseline')
     performance_indicator = TextAreaField('Performance Indicator')
     budget = DecimalField("Planned Budget, places'2'")

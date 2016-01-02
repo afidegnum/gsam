@@ -12,8 +12,3 @@ class Media(db.Model):
     posted_date = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
-
-
-
-
-

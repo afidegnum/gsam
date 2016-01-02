@@ -35,7 +35,7 @@ class District(db.Model):
 class Subdistrict(db.Model):
     __tablename__ = 'subdistricts'
     id = db.Column(db.Integer, primary_key=True)
-    subdistrict = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), index=True)
     districts = db.Column(db.Integer, db.ForeignKey('districts.id'))
     villages = db.relationship("Village", backref='subdistricts')
     # deliverables

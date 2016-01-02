@@ -28,7 +28,7 @@ app.config.from_object(config.DevelopmentConfig)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-bootstrap = Bootstrap(app)
+Bootstrap(app)
 db = SQLAlchemy(app)
 
 
