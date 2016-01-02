@@ -44,11 +44,11 @@ images = UploadSet('images', IMAGES)
 class ProjectForm(Form):
     title = StringField('Project Name', validators=[DataRequired()])
     description = TextAreaField('Project Details', validators=[DataRequired()])
-    sector = QuerySelectField(get_label='Service Sector', query_factory=sector_lists())
-    regions = QuerySelectField(get_label='Regions', query_factory=region_lists())
-    district = QuerySelectField(get_label='Regions', query_factory=district_lists())
-    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts())
-    village = QuerySelectField(get_label='Village', query_factory=villages_lists())
+    sector = QuerySelectField(get_label='Service Sector', query_factory=sector_lists)
+    regions = QuerySelectField(get_label='Regions', query_factory=region_lists)
+    district = QuerySelectField(get_label='Regions', query_factory=district_lists)
+    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts)
+    village = QuerySelectField(get_label='Village', query_factory=villages_lists)
     baseline = TextAreaField('Baseline')
     performance_indicator = TextAreaField('Performance Indicator')
     budget = DecimalField("Planned Budget, places'2'")
@@ -64,15 +64,15 @@ class ProjectForm(Form):
 class BeneficiaryForm(Form):
     name = StringField('Beneficiaries', validators=[DataRequired()])
     descripiton = TextAreaField('Description')
-    regions = QuerySelectField(get_label='Regions', query_factory=region_lists())
-    district = QuerySelectField(get_label='Regions', query_factory=district_lists())
-    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts())
-    village = QuerySelectField(get_label='Village', query_factory=villages_lists())
+    regions = QuerySelectField(get_label='Regions', query_factory=region_lists)
+    district = QuerySelectField(get_label='Regions', query_factory=district_lists)
+    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts)
+    village = QuerySelectField(get_label='Village', query_factory=villages_lists)
 
 class RemarkForm(Form):
     title = StringField('Title', validators=[DataRequired()])
-    Project = QuerySelectField(get_label='Project', query_factory=project_lists())
-    activity = QuerySelectField(get_label='Activities', query_factory=activity_lists())
+    Project = QuerySelectField(get_label='Project', query_factory=project_lists)
+    activity = QuerySelectField(get_label='Activities', query_factory=activity_lists)
     media_gallery = FileField('image', validators=[
         FileRequired(),
         FileAllowed(images, "Image Only")
