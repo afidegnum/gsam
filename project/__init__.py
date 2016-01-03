@@ -25,7 +25,8 @@ app.config.from_object(config.DevelopmentConfig)
 ####################
 #### extensions ####
 ####################
-
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 login_manager = LoginManager()
 login_manager.init_app(app)
 Bootstrap(app)

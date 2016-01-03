@@ -1,14 +1,14 @@
-from flask.ext.wtf.file import FileRequired, FileAllowed, FileField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from project.location.models import Region, District, Subdistrict, Village
-from flask.ext.uploads import UploadSet, IMAGES, DOCUMENTS
+#from flask.ext.uploads import UploadSet, IMAGES, DOCUMENTS
 from flask_wtf import Form
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, NumberRange
 from . models import Sector, Project, Activity
 from project import db
 from project.crc.models import CrC
 from wtforms import StringField, TextAreaField, validators, SubmitField, SelectField, IntegerField, DateTimeField, \
-    RadioField, BooleanField, DecimalField, DateField, FileField
+    RadioField, BooleanField, DecimalField, DateField
 
 
 class SectorForm(Form):
@@ -36,7 +36,7 @@ def project_lists():
 def activity_lists():
     return db.session.query(Activity)
 
-images = UploadSet('images', IMAGES)
+#images = UploadSet('images', IMAGES)
 
 
 class ProjectForm(Form):
@@ -49,14 +49,10 @@ class ProjectForm(Form):
     village = QuerySelectField(get_label='village', query_factory=villages_lists)
     baseline = TextAreaField('Baseline')
     performance_indicator = TextAreaField('Performance Indicator')
-    budget = DecimalField("Planned Budget, places'2'")
+    budget = DecimalField("Planned Budget", places=2)
     started = DateTimeField('Project Started Date')
     estimated_completion = DateField('Estimated Completion date', format='%Y-%m-%d')
-    completed = BooleanField('Completed?', default=False)
-    media_gallery = FileField('image', validators=[
-        FileRequired(),
-        FileAllowed(images, "Image Only")
-    ])
+    media_gallery = FileField('image', validators=[FileRequired()])
 
 
 class BeneficiaryForm(Form):
@@ -72,8 +68,7 @@ class RemarkForm(Form):
     Project = QuerySelectField(get_label='Project', query_factory=project_lists)
     activity = QuerySelectField(get_label='Activities', query_factory=activity_lists)
     media_gallery = FileField('image', validators=[
-        FileRequired(),
-        FileAllowed(images, "Image Only")
+        FileRequired()
     ])
     score = SelectField('Rate', validators=[DataRequired()], coerce=int, choices=range(1, 5))
 

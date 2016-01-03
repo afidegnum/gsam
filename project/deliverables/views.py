@@ -35,17 +35,32 @@ def deliv_index():
     deliverables  = [name for name, in db.session.query(Project.title)]
     return render_template('front/deliverables.html', deliverables=deliverables)
 
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 @deliverables.route('/add', methods=['GET', 'POST'])
 def deliverables():
     forms = ProjectForm()
     if forms.validate_on_submit():
-        pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data, budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data, mark_complete=forms.completed.data, sector=forms.sector.data,)
-        gallery = secure_filename(forms.media_gallery.data.filename)
-        forms.media_gallery.data.save(gallery)
+        pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data, budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data, sector=forms.sector.data,)
+        files = request.files['media_gallery']
+        if files and allowed_file(files.filename):
+            filename = secure_filename(files.filename)
+            return files.save(filename)
         media = Media()
         pmodel.media.append(media)
         db.session.add(pmodel)
         db.session.commit()
     return render_template('front/deliverables_edit.html', forms=forms)
+
+@deliverables.route('/edit', methods=['GET', 'POST'])
+def beneficiaries():
+    return render_template('front/beneficaireis.html')
+
+
+
+
 
 
