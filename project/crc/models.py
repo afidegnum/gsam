@@ -13,49 +13,22 @@ class CrC(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
-    def __init__(self, title, description, service_target, purpose_of_study, service_aspect):
+    def __init__(self, title, description, service_target, purpose_of_study, service_aspect, date, author):
         self.title = title
         self.description = description
         self.service_target = service_target
         self.purpose_of_study = purpose_of_study
         self.service_aspect = service_aspect
-
-class Community(db.Model):
-    __tablename__ = 'communities'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
-    key_leaders = db.Column(db.Text)
-    facilitators_id = db.Column(db.Integer, db.ForeignKey('users.id')) # or add plain
-    facilitators = db.relationship("User")
-    subgroup = db.Column(db.Text)
-    min_age = db.Column(db.Integer)
-    max_age = db.Column(db.Integer)
-    meeting_date = db.Column(db.DateTime)
-    #---------------------------
-    region = db.Column(db.Integer, db.ForeignKey('regions.id'))
-    district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
-    subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
-    village = db.Column(db.Integer, db.ForeignKey('villages.id'))
-    #------------------------------------
-
-    def __init__(self, name, district, key_leaders, facilitators, subgroup, min_age, max_age, meeting_date):
-        self.name = name
-        self.district = district
-        self.key_leaders = key_leaders
-        self.facilitators = facilitators
-        self.subgroup = subgroup
-        self.min_age = min_age
-        self.max_age = max_age
-        self.meeting_date = meeting_date
-
+        self.date = date
+        self.author = author
 
 class BasicQuestion(db.Model):
     __tablename__ = 'basic_questions'
     id = db.Column(db.Integer, primary_key=True)
     investigator = db.Column(db.Integer, db.ForeignKey('users.id'))
+    communities = db.Column(db.Integer, db.ForeignKey('cscommunities.id'))
     name = db.Column(db.String(150))
     gender = db.Column(db.String(7))
-    location = db.Column(db.Integer, primary_key=True)
     family_type = db.Column(db.String(20))
     male_adults = db.Column(db.Integer)
     female_adults = db.Column(db.Integer)
@@ -76,7 +49,6 @@ class BasicQuestion(db.Model):
     def __init__(self, investigator, name, gender, location, family_type, male_adults, female_adults, male_children, female_children, employed, students, traders, monthly_income, date):
         self.investigator = investigator
         self.gender = gender
-        self.location = location
         self.family_type = family_type
         self.male_adults = male_adults
         self.female_adults = female_adults

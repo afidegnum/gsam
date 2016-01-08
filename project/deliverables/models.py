@@ -64,7 +64,7 @@ class Beneficiary(db.Model):
     subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
     village = db.Column(db.Integer, db.ForeignKey('villages.id'))
 
-    def __init__(self, name, description, remarks, media, region, district, subdistrict, village):
+    def __init__(self, name, description, region, district, subdistrict, village):
         self.name = name
         self.description = description
         self.region = region

@@ -1,0 +1,11 @@
+{% from 'front/_formtool.html' import render_field %}
+<form method="post" enctype="multipart/form-data">
+    <dl>
+        {{ render_field(forms.improvement) }}
+        {{ render_field(forms.who)}}
+        {{ render_field(forms.when)}}
+        {{ render_field(forms.proposed_actions)}}
+    </dl>
+
+    <p><input type="submit" value="Add"></p>
+</form>

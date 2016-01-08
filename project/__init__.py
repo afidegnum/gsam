@@ -40,12 +40,14 @@ db = SQLAlchemy(app)
 #from project.user.views import user
 from project.user import user
 from project.location import location
-from project.crc import crcard
+from project.crc import crc
 from project.deliverables import deliverables
+from project.csc import csc
 #from project.main.views import main_blueprint
 app.register_blueprint(user)
+app.register_blueprint(csc, url_prefix='/csc')
 app.register_blueprint(location)
-app.register_blueprint(crcard)
+app.register_blueprint(crc)
 app.register_blueprint(deliverables, url_prefix='/deliverables')
 
 

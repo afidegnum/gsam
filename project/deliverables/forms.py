@@ -11,8 +11,6 @@ from wtforms import StringField, TextAreaField, validators, SubmitField, SelectF
     RadioField, BooleanField, DecimalField, DateField
 
 
-class SectorForm(Form):
-    name = StringField('Service Sector', validators=[DataRequired()])
 
 
 def sector_lists():
@@ -36,6 +34,9 @@ def project_lists():
 def activity_lists():
     return db.session.query(Activity)
 
+class SectorForm(Form):
+    name = StringField('Service Sector', validators=[DataRequired()])
+
 #images = UploadSet('images', IMAGES)
 
 
@@ -52,16 +53,18 @@ class ProjectForm(Form):
     budget = DecimalField("Planned Budget", places=2)
     started = DateTimeField('Project Started Date')
     estimated_completion = DateField('Estimated Completion date', format='%Y-%m-%d')
+    #completed = BooleanField('Completed?', default=False)
     media_gallery = FileField('image', validators=[FileRequired()])
 
 
 class BeneficiaryForm(Form):
     name = StringField('Beneficiaries', validators=[DataRequired()])
     descripiton = TextAreaField('Description')
-    regions = QuerySelectField(get_label='Regions', query_factory=region_lists)
-    district = QuerySelectField(get_label='Regions', query_factory=district_lists)
-    subdistrict = QuerySelectField(get_label='Subdistrict', query_factory=sub_districts)
-    village = QuerySelectField(get_label='Village', query_factory=villages_lists)
+    regions = QuerySelectField(get_label='region', query_factory=region_lists)
+    district = QuerySelectField(get_label='district', query_factory=district_lists)
+    subdistrict = QuerySelectField(get_label='subdistrict', query_factory=sub_districts)
+    village = QuerySelectField(get_label='village', query_factory=villages_lists)
+    media_gallery = FileField('image', validators=[FileRequired()])
 
 class RemarkForm(Form):
     title = StringField('Title', validators=[DataRequired()])

@@ -1,5 +1,5 @@
 from flask import Blueprint
-crcard = Blueprint('crcard', __name__)
+crc = Blueprint('crc', __name__)
 
 
 # line added by: takwas

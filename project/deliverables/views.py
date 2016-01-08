@@ -24,12 +24,6 @@ def sectors():
     return render_template('front/sectors.html', sectors=sects, form=sform)
 
 
-#TODO Create a dropdown lists of deliverables.
-@deliverables.route('/beneficiaries')
-def beneficiaries():
-    return render_template('front/beneficiaries.html')
-
-
 @deliverables.route('/')
 def deliv_index():
     deliverables  = [name for name, in db.session.query(Project.title)]
@@ -40,27 +34,38 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
 @deliverables.route('/add', methods=['GET', 'POST'])
-def deliverables():
+def deliverables_add():
     forms = ProjectForm()
     if forms.validate_on_submit():
-        pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data, budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data, sector=forms.sector.data,)
-        files = request.files['media_gallery']
-        if files and allowed_file(files.filename):
-            filename = secure_filename(files.filename)
-            return files.save(filename)
+        pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data, budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data, sector=forms.sector.data, mark_complete=False)
+        media = request.files['media_gallery']
+        if media and allowed_file(media.filename):
+            files = secure_filename(media.filename)
+            return media.save(files)
         media = Media()
         pmodel.media.append(media)
         db.session.add(pmodel)
         db.session.commit()
     return render_template('front/deliverables_edit.html', forms=forms)
 
-@deliverables.route('/edit', methods=['GET', 'POST'])
+
+@deliverables.route('/beneficiaries')
 def beneficiaries():
-    return render_template('front/beneficaireis.html')
+    return render_template('front/beneficiaries.html')
 
-
-
-
-
-
+@deliverables.route('/beneficiaries/add', methods=['GET', 'POST'])
+def beneficiaries_add():
+    forms = BeneficiaryForm()
+    if forms.validate_on_submit():
+        bmodel = Beneficiary(name=forms.name.data, description=forms.descripiton.data, region=forms.regions.data, district=forms.district.data, subdistrict=forms.subdistrict.data, village=forms.village.data)
+        media = request.files['media_gallery']
+        if media and allowed_file(media.filename):
+            files = secure_filename(media)
+            media.save(files)
+        bmedia = Media()
+        bmodel.media.append(bmedia)
+        db.session.add(bmodel)
+        db.session.commit()
+    return render_template('front/beneficiaries_add.html', forms=forms)

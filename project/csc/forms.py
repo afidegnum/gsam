@@ -1,30 +1,55 @@
 from flask_wtf import Form
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
 from wtforms import StringField, IntegerField, TextAreaField, SelectField, validators, FloatField, DateTimeField
 from wtforms.validators import DataRequired
+from project import db
+from project.csc.models import CSCommunity, CSC
+from flask_wtf.file import FileField, FileRequired
+from project.deliverables.forms import sector_lists, region_lists, district_lists, sub_districts, villages_lists
+
+def community_lists():
+    return db.session.query(CSCommunity)
+
+def score_cards():
+    return db.session.query(CSC)
 
 
 class CSForm(Form):
     name = StringField('Title of the CSC Card', validators=[DataRequired()])
     description = TextAreaField('description')
-    sector = SelectField('Sector')
+    sector = QuerySelectField(get_label='name', query_factory=sector_lists)
     age_from = IntegerField('minimum age', [validators.required()])
     age_to = IntegerField('maximum age', [validators.required()])
     income_from = IntegerField('minimum ingome', [validators.required()])
     income_to = IntegerField('maximum income', [validators.required()])
     budget = FloatField('Budget for this project')
+    media = FileField('Upload Media', validators=[FileRequired()])
 
 
-class CsCOmmunityform(Form):
+class CsCommunityform(Form):
     name = StringField('Community to visitt', validators=[DataRequired()])
-    region = SelectField('Region', validators=[DataRequired()], coerce=int)
-    district = SelectField('District', validators=[DataRequired()], coerce=int)
-    subdistrict = SelectField('Subdistrict', validators=[DataRequired()], coerce=int)
-    village = SelectField('Village', validators=[DataRequired()], coerce=int)
-    key_leaders = TextAreaField('Key Leaders')
-    facilitators = SelectField('Key Leaders')
+    regions = QuerySelectField(get_label='region', query_factory=region_lists)
+    district = QuerySelectField(get_label='district', query_factory=district_lists)
+    subdistrict = QuerySelectField(get_label='subdistrict', query_factory=sub_districts)
+    village = QuerySelectField(get_label='village', query_factory=villages_lists)
     subgroup = TextAreaField('The SUbgroup of interest')
+    media = FileField('Upload Media', validators=[FileRequired()])
+
+class AgendaForm(Form):
+    score_card = QuerySelectField(get_label='name', query_factory=score_cards)
+    community = QuerySelectField(get_label='name', query_factory=community_lists)
     meeting_date = DateTimeField('The Next Meeting date', format='%Y-%m-%d %H:%M')
+    facilitators = TextAreaField('Facilitators')
+    notes = TextAreaField('Notes')
+
+
+
+class KeyLeadersForm(Form):
+    name = StringField('Name of Facilitator')
+    address = TextAreaField('Address')
+    picture = FileField('Upload Picture', validators=[FileRequired()])
+    community = QuerySelectField(get_label='name', query_factory=community_lists)
 
 
 class CSInputform(Form):

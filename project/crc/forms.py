@@ -1,7 +1,9 @@
 from flask_wtf import Form
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, NumberRange
 from project import db
 from project.crc.models import CrC
+from project.csc.forms import community_lists
 from wtforms import StringField, TextAreaField, validators, SubmitField, SelectField, IntegerField, DateTimeField, \
     RadioField, BooleanField
 
@@ -10,6 +12,7 @@ class CrCForm(Form):
     title = StringField('Title of the CRC project', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     service_target = SelectField('Service Target to study', coerce=int)
+    purpose_of_study = TextAreaField('Purpose of Study', validators=[DataRequired()])
     service_scope = TextAreaField('Service Scope', validators=[DataRequired()])
     service_aspect = SelectField('Service Aspect to inspect')
 
@@ -29,6 +32,7 @@ class CommunityForm(Form):
 class BasicQuestionForm(Form):
     name = StringField('Target Name', validators=[DataRequired()])
     gender = RadioField(choices=[('male', 'Male'), ('female', 'Female')])
+    community = QuerySelectField(get_label='name', query_factory=community_lists)
     family_type = SelectField('Region', validators=[DataRequired()], coerce=unicode, choices=[('nuclear', 'Nuclear Family'), ('single', 'Single Family'), ('Childless', 'Childless Family'), ('step', 'Step Family'), ('grandparent', 'Grand Parent Family')])
     male_adults = IntegerField('Number of Male adults in the house')
     female_adults = IntegerField('How mane females in the household')

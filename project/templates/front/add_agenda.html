@@ -1,0 +1,12 @@
+{% from 'front/_formtool.html' import render_field %}
+<form method="post" enctype="multipart/form-data">
+    <dl>
+        {{ render_field(forms.score_card) }}
+        {{ render_field(forms.community) }}
+        {{ render_field(forms.meeting_date) }}
+        {{ render_field(forms.facilitators) }}
+        {{ render_field(forms.notes) }}
+        </dl>
+
+    <p><input type="submit" value="Add"></p>
+</form>
