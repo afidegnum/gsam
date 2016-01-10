@@ -1,3 +1,6 @@
+{% extends "front/index.html" %}
+{% block body %}
+
 {% from 'front/_formtool.html' import render_field %}
 <form method="post" enctype="multipart/form-data">
     <dl>
@@ -17,3 +20,5 @@
     </dl>
     <p><input type="submit" value="Add"></p>
 </form>
+
+{% endblock %}

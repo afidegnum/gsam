@@ -4,9 +4,9 @@ from project.location.models import Region, District, Subdistrict, Village
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, NumberRange
-from . models import Sector, Project, Activity
+from project.deliverables.models import Sector, Project, Activity
 from project import db
-from project.crc.models import CrC
+#from project.crc.models import CrC
 from wtforms import StringField, TextAreaField, validators, SubmitField, SelectField, IntegerField, DateTimeField, \
     RadioField, BooleanField, DecimalField, DateField
 

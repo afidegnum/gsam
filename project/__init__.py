@@ -43,6 +43,7 @@ from project.location import location
 from project.crc import crc
 from project.deliverables import deliverables
 from project.csc import csc
+from project.idea import idea
 #from project.main.views import main_blueprint
 app.register_blueprint(user)
 app.register_blueprint(csc, url_prefix='/csc')
