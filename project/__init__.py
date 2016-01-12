@@ -45,7 +45,7 @@ from project.deliverables import deliverables
 from project.csc import csc
 from project.idea import idea
 #from project.main.views import main_blueprint
-app.register_blueprint(user)
+app.register_blueprint(user, url_prefix='/account')
 app.register_blueprint(csc, url_prefix='/csc')
 app.register_blueprint(location)
 app.register_blueprint(crc)

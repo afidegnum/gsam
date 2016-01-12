@@ -49,7 +49,7 @@ class User(UserMixin, db.Model):
     activities_posts = db.relationship('Activity', backref='users', lazy='dynamic')
     # facilitator = db.relationship("Community", back_populates="user")
 
-    def __init__(self,  username, title, first_name, last_name, other_name, password, phone, email, address, location, picture, role, activation, active, created_date, last_login, retries):
+    def __init__(self,  username, title, first_name, last_name, other_name, password, phone, email, address, region, district, subdistrict, village, picture, role, activation, active, created_date, last_login, retries):
         self.username = username
         self.title = title
         self.first_name = first_name
@@ -59,7 +59,10 @@ class User(UserMixin, db.Model):
         self.phone = phone
         self.email = email
         self.address = address
-        self.location = location
+        self.region = region
+        self.district = district
+        self.subdistrict = subdistrict
+        self.village = village
         self.picture = picture
         self.role = role
         self.activation = activation
