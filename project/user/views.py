@@ -29,7 +29,7 @@ def register():
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
                 other_name=form.other_names.data,
-                password=form.password.data,
+                password = form.password.data,
                 phone=form.phone.data,
                 email=form.email.data,
                 address=form.address.data,

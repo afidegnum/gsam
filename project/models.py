@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(40))
     last_name = db.Column(db.String(40))
     other_name = db.Column(db.String(40))
-    password = db.Column(db.String(255))
+    password_hash = db.Column(db.String(255))
     pincode = db.Column(db.String(5))
     phone = db.Column(db.String(15))
     email = db.Column(db.String(70), nullable=False, index=True, unique=True)
@@ -49,13 +49,12 @@ class User(UserMixin, db.Model):
     activities_posts = db.relationship('Activity', backref='users', lazy='dynamic')
     # facilitator = db.relationship("Community", back_populates="user")
 
-    def __init__(self,  username, title, first_name, last_name, other_name, password, phone, email, address, region, district, subdistrict, village, picture, role, activation, active, created_date, last_login, retries):
+    def __init__(self,  username, title, first_name, last_name, other_name, phone, email, address, region, district, subdistrict, village, picture, role, activation, active, created_date, last_login, retries):
         self.username = username
         self.title = title
         self.first_name = first_name
         self.last_name = last_name
         self.other_name = other_name
-        self.password = password
         self.phone = phone
         self.email = email
         self.address = address
