@@ -1,4 +1,4 @@
-from project import db
+from project import db, bcrypt
 from datetime import datetime
 from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -18,7 +18,7 @@ class Role(db.Model):
         self.front = front
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, unique=True, index=True)
@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(40))
     last_name = db.Column(db.String(40))
     other_name = db.Column(db.String(40))
-    password_hash = db.Column(db.String(255))
+    password = db.Column(db.String(255))
     pincode = db.Column(db.String(5))
     phone = db.Column(db.String(15))
     email = db.Column(db.String(70), nullable=False, index=True, unique=True)
@@ -49,12 +49,13 @@ class User(UserMixin, db.Model):
     activities_posts = db.relationship('Activity', backref='users', lazy='dynamic')
     # facilitator = db.relationship("Community", back_populates="user")
 
-    def __init__(self,  username, title, first_name, last_name, other_name, phone, email, address, region, district, subdistrict, village, picture, role, activation, active, created_date, last_login, retries):
+    def __init__(self,  username, title, password, first_name, last_name, other_name, phone, email, address, region, district, subdistrict, village, picture, role, activation, active, created_date, last_login, retries):
         self.username = username
         self.title = title
         self.first_name = first_name
         self.last_name = last_name
         self.other_name = other_name
+        self.password = bcrypt.generate_password_hash(password)
         self.phone = phone
         self.email = email
         self.address = address
@@ -70,18 +71,25 @@ class User(UserMixin, db.Model):
         self.last_login = last_login
         self.retries = retries
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_annonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
+
+
+
+
+
+
     def __repr__(self):
         return 'User %r' % self.name
 
-    @property
-    def password(self):
-        raise AttributeError('Thief! Hacker! Do you think you can go away with this? Your days are Numbered! Start Running')
-
-    @password.setter
-    def password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self, password):
-        return check_password_hash(self.password_hash, password)
 
 

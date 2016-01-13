@@ -21,7 +21,7 @@ def roles():
     return render_template('front/roles.html', names=names)
 
 # line modified by: takwas
-@user_blueprint.route('/register/')
+@user_blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     user = User(username=form.username.data,

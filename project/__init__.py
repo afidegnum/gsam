@@ -6,11 +6,12 @@
 #################
 
 import os
-
+from flask.ext.bcrypt import Bcrypt
 from flask import Flask, render_template
 from flask.ext.login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
+
 
 
 ################
@@ -20,6 +21,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import config
 app = Flask(__name__)
 app.config.from_object(config.DevelopmentConfig)
+bcrypt = Bcrypt(app)
 
 
 ####################
