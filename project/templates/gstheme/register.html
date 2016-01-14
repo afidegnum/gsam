@@ -1,0 +1,27 @@
+{% extends "gstheme/index.html" %}
+{% block register %}
+
+{% from 'front/_formtool.html' import render_field %}
+<div>
+    <form method="post" enctype="multipart/form-data">
+    <dl>
+        {{ render_field(rform.username)}}
+        {{ render_field(rform.title)}}
+        {{ render_field(rform.first_name)}}
+        {{ render_field(rform.last_name)}}
+        {{ render_field(rform.other_names)}}
+        {{ render_field(rform.password)}}
+        {{ render_field(rform.password2)}}
+        {{ render_field(rform.email)}}
+        {{ render_field(rform.phone)}}
+        {{ render_field(rform.address)}}
+        {{ render_field(rform.regions)}}
+        {{ render_field(rform.district)}}
+        {{ render_field(rform.subdistrict)}}
+        {{ render_field(rform.village)}}
+        {{ render_field(rform.roles)}}
+        {{ render_field(rform.submit)}}
+        </dl>
+</form>
+</div>
+{% endblock %}

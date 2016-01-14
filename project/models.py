@@ -17,11 +17,14 @@ class Role(db.Model):
         self.name = name
         self.front = front
 
+    def __repr__(self):
+        return self.name
+
 
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), nullable=False, unique=True, index=True)
+    username = db.Column(db.String(30), nullable=False, unique=True, index=True)
     title = db.Column(db.String(20))
     first_name = db.Column(db.String(40))
     last_name = db.Column(db.String(40))
@@ -55,7 +58,7 @@ class User(db.Model):
         self.first_name = first_name
         self.last_name = last_name
         self.other_name = other_name
-        self.password = bcrypt.generate_password_hash(password)
+        self.password = bcrypt.generate_password_hash(password, rounds=14)
         self.phone = phone
         self.email = email
         self.address = address

@@ -1,0 +1,19 @@
+{% extends "gstheme/index.html" %}
+{% from 'front/_formtool.html' import render_field %}
+{% block account %}
+
+
+<form method="post">
+    <dl>
+        {{ render_field(forms.username) }}
+        {{ render_field(forms.password)}}
+        {{ render_field(forms.remember)}}
+    </dl>
+
+    <p><input type="submit" value="Login"></p>
+</form>
+
+{% endblock %}
+
+
+
