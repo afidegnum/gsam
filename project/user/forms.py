@@ -8,10 +8,14 @@ from project.models import Role, User
 from project.deliverables.forms import region_lists, district_lists, sub_districts, villages_lists
 
 
+
+class RoleForm(Form):
+    role = StringField('Role Name', validators=[DataRequired()])
+
+
 def roles_list():
     r = db.session.query(Role).filter_by(front=True)
     return r
-
 
 class RegisterForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -28,10 +32,11 @@ class RegisterForm(Form):
     district = QuerySelectField(get_label='district', query_factory=district_lists)
     subdistrict = QuerySelectField(get_label='name', query_factory=sub_districts)
     village = QuerySelectField(get_label='village', query_factory=villages_lists)
-    roles = QuerySelectField(get_label='name', query_factory=roles_list, allow_blank=True)
+    roles = QuerySelectField(get_label='name', query_factory=roles_list)
+    #roles = QuerySelectField(query_factory=lambda: [name for name, in db.session.query(Role).all()])
 
     # location = ''
-    # picture = ''name for name, in
+    # picture = ''
     # position = ''#Roles
     submit = SubmitField('Register')
 

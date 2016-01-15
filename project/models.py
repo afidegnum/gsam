@@ -17,9 +17,6 @@ class Role(db.Model):
         self.name = name
         self.front = front
 
-    def __repr__(self):
-        return self.name
-
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -92,7 +89,7 @@ class User(db.Model):
 
 
     def __repr__(self):
-        return 'User %r' % self.name
+        return 'User %r' % self.username
 
 
 

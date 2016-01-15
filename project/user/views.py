@@ -33,11 +33,15 @@ def roles():
 @user_blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 def members():
-    return render_template("front/members.html", user = g.user)
+    user = 'Hi {}'.format(g.user.username)
+    return render_template("gstheme/members.html", user = user)
 
 # line modified by: takwas
 @user_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
+    if g.user.is_authenticated:
+        flash("You are already Logged in", 'warning')
+        return redirect(request.args.get('next') or url_for('user.members'))
     form = RegisterForm()
     if form.validate_on_submit():
         users = User(username=form.username.data,
@@ -49,11 +53,11 @@ def register():
                     phone=form.phone.data,
                     email=form.email.data,
                     address=form.address.data,
-                    region=form.regions.data,
-                    district=form.district.data,
-                    subdistrict=form.subdistrict.data,
-                    village=form.village.data,
-                    role=form.roles.data,
+                    region=form.regions.data.id,
+                    district=form.district.data.id,
+                    subdistrict=form.subdistrict.data.id,
+                    village=form.village.data.id,
+                    role=form.roles.data.id,
                     activation='',
                     active=True,
                     created_date=datetime.datetime.utcnow(),
