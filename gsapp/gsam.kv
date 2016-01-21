@@ -1,6 +1,111 @@
-MainScreen:
-       Label: "GSAM"
-       TextInput:
-       Widget:
-            <Widget>
-                label: pos_hint_x
+<MyScreenManager>:
+    IntroScreen:
+    MainScreen:
+    PrjcScreen:
+    MailScreen:
+    ChatScreen:
+
+<IntroScreen>:
+    name: 'introscreen'
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+
+            #size: 5, 5
+            Label:
+                text: 'Welcome to GSAM'
+                font_size: 40
+        BoxLayout:
+            Label:
+                text: "Login"
+            TextInput:
+                id: login
+                text: "Login"
+            Button:
+                text: "Connect"
+                on_release: root.current = 'mainpage'
+        BoxLayout:
+            Button:
+                text: 'Project Page'
+                font_size: 25
+                on_release: app.root.current = 'main'
+
+<MainScreen>:
+    name: 'main'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            Label:
+                text: 'Your GSAM Portal'
+                font_size: 35
+        BoxLayout:
+            Button:
+                text: 'Check Mails'
+                font_size: 25
+                on_release: app.root.current = 'mailscreen'
+                canvas:
+                    Color:
+                        rgba: 1,0,0,1
+                    Rectangle:
+                        size: 50, 50
+                        # label: "Post Projects"
+                        id: projct
+                    Rectangle:
+                        size: 50, 50
+                        # label: "Messages"
+                        id: msgs
+
+<MailScreen>:
+    name: 'mailscreen'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            Label:
+                text: 'GSAM Mail'
+                font_size: 35
+        BoxLayout:
+            Button:
+                text: 'Chat'
+                font_size: 25
+                on_release: app.root.current = 'chatscreen'
+
+<ChatScreen>:
+    name: 'chatscreen'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            Label:
+                text: 'Chat with your Colleagues'
+                font_size: 35
+        BoxLayout:
+            Button:
+                text: 'Home'
+                font_size: 25
+                on_release: app.root.current = 'main'
+
+<PrjcScreen>:
+    name: 'prjcscreen'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            Label:
+                text: 'Community Projects'
+                font_size: 35
+        BoxLayout:
+            Button:
+                text: 'community Projects'
+                font_size: 25
+                on_release: app.root.current = 'main'
+                GridLayout:
+                    cols: 2
+                    rows: 4
+                    padding: 5
+                    spacing: 5
+                    Label:
+                        text: "Project Title"
+                    TextInput:
+                        id: ptitle
+                    Label:
+                        text: "Project Description"
+                    TextInput:
+                        id: pdescr
