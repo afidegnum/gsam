@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.network.urlrequest import UrlRequest
 
 class MyScreenManager(ScreenManager):
     pass
@@ -22,7 +23,6 @@ class ChatScreen(Screen):
 
 class GsaMain(BoxLayout):
     pass
-
 
 class GsamApp(App):
     def build(self):

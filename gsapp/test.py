@@ -5,3 +5,8 @@ class TutorialApp(App):
 
 if __name__ == "__main__":
     TutorialApp().run()
+
+class RemoteConnect():
+    def __init__(self, host, params):
+        self.host = host
+        self.params = params

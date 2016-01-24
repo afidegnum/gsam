@@ -8,39 +8,41 @@
 <IntroScreen>:
     name: 'introscreen'
     BoxLayout:
-        orientation:'vertical'
+        orientation:'horizontal'
         BoxLayout:
-
-            #size: 5, 5
-            Label:
-                text: 'Welcome to GSAM'
-                font_size: 40
-        BoxLayout:
-            Label:
-                text: "Login"
+            padding: 0, 0, 10, 0
+            canvas:
+                Color:
+                    rgb: 0, 0.267, 0
+                Rectangle:
+                    size: self.size
+            spacing: 10
+            Widget:
             TextInput:
                 id: login
                 text: "Login"
+                multiline: False
+                size_hint: None, None
+                height:60
+                font_size: 30
+                pos_hint:{'center_y': 0.5, 'center_x': 0.6}
             Button:
-                text: "Connect"
+                text: "Enter"
+                size_hint: None, None
+                size: 100, 63
+                pos_hint:{'center_y': 0.5, 'center_x': 0.6}
                 on_release: root.current = 'mainpage'
-        BoxLayout:
-            Button:
-                text: 'Project Page'
-                font_size: 25
-                on_release: app.root.current = 'main'
-
 <MainScreen>:
     name: 'main'
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
             Label:
-                text: 'Your GSAM Portal'
+                text: 'Welcome'
                 font_size: 35
         BoxLayout:
             Button:
-                text: 'Check Mails'
+                text: 'Messages'
                 font_size: 25
                 on_release: app.root.current = 'mailscreen'
                 canvas:
@@ -70,12 +72,12 @@
                 on_release: app.root.current = 'chatscreen'
 
 <ChatScreen>:
-    name: 'chatscreen'
+    name: 'Discussions'
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
             Label:
-                text: 'Chat with your Colleagues'
+                text: 'Chat & Discussions'
                 font_size: 35
         BoxLayout:
             Button:
