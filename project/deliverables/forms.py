@@ -39,16 +39,23 @@ class SectorForm(Form):
 
 #images = UploadSet('images', IMAGES)
 
+class RegionForm(Form):
+    regions = SelectField(u'', choices=())
+    districts = SelectField(u'', choices=())
+    subdistricts = SelectField(u'', choices=())
+    villages = SelectField(u'', choices=())
+    baseline = TextAreaField('Baseline')
+
+
 
 class ProjectForm(Form):
     title = StringField('Project Name', validators=[DataRequired()])
-    description = TextAreaField('Project Details', validators=[DataRequired()])
+    description = TextAreaField('Project Details', validators=[DataRequired()], )
     sector = QuerySelectField(get_label='name', query_factory=sector_lists)
-    regions = QuerySelectField(get_label='region', query_factory=region_lists)
-    district = QuerySelectField(get_label='district', query_factory=district_lists)
-    subdistrict = QuerySelectField(get_label='subdistrict', query_factory=sub_districts)
-    village = QuerySelectField(get_label='village', query_factory=villages_lists)
-    baseline = TextAreaField('Baseline')
+    #regions = QuerySelectField(get_label='region', query_factory=region_lists)
+    #district = QuerySelectField(get_label='district', query_factory=district_lists)
+    #subdistrict = QuerySelectField(get_label='name', query_factory=sub_districts)
+    #village = QuerySelectField(get_label='village', query_factory=villages_lists)
     performance_indicator = TextAreaField('Performance Indicator')
     budget = DecimalField("Planned Budget", places=2)
     started = DateTimeField('Project Started Date')
@@ -62,7 +69,7 @@ class BeneficiaryForm(Form):
     descripiton = TextAreaField('Description')
     regions = QuerySelectField(get_label='region', query_factory=region_lists)
     district = QuerySelectField(get_label='district', query_factory=district_lists)
-    subdistrict = QuerySelectField(get_label='subdistrict', query_factory=sub_districts)
+    subdistrict = QuerySelectField(get_label='name', query_factory=sub_districts)
     village = QuerySelectField(get_label='village', query_factory=villages_lists)
     media_gallery = FileField('image', validators=[FileRequired()])
 

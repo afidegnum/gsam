@@ -1,0 +1,24 @@
+{% extends "ginn/index.html" %}
+{% block body %}
+
+{% from 'ginn/_formtool.html' import render_field %}
+<form method="post" enctype="multipart/form-data">
+    <dl>
+        {{ render_field(forms.sector) }}
+        {{ render_field(forms.regions) }}
+        {{ render_field(forms.district) }}
+        {{ render_field(forms.subdistrict) }}
+        {{ render_field(forms.village) }}
+        {{ render_field(forms.title) }}
+        {{ render_field(forms.description) }}
+        {{ render_field(forms.baseline) }}
+        {{ render_field(forms.performance_indicator) }}
+        {{ render_field(forms.budget) }}
+        {{ render_field(forms.started) }}
+        {{ render_field(forms.estimated_completion) }}
+        {{ render_field(forms.media_gallery) }}
+    </dl>
+    <p><input type="submit" value="Add"></p>
+</form>
+
+{% endblock %}

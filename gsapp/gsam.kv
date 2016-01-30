@@ -5,57 +5,103 @@
     MailScreen:
     ChatScreen:
 
-<IntroScreen>:
+<IntroScreen@Screen>:
     name: 'introscreen'
-    BoxLayout:
-        orientation:'horizontal'
-        BoxLayout:
-            padding: 0, 0, 10, 0
-            canvas:
-                Color:
-                    rgb: 0, 0.267, 0
-                Rectangle:
-                    size: self.size
-            spacing: 10
-            Widget:
-            TextInput:
-                id: login
-                text: "Login"
-                multiline: False
-                size_hint: None, None
-                height:60
-                font_size: 30
-                pos_hint:{'center_y': 0.5, 'center_x': 0.6}
-            Button:
-                text: "Enter"
-                size_hint: None, None
-                size: 100, 63
-                pos_hint:{'center_y': 0.5, 'center_x': 0.6}
-                on_release: root.current = 'mainpage'
+
+    canvas:
+        Color:
+            rgb: 0, 0.267, 0
+        Rectangle:
+            size: self.size
+
+    GridLayout:
+        rows: 1
+        size_hint: None, None
+        width: self.minimum_width  # combined width of child widgets
+        height: self.minimum_height # combined height of child widgets
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        spacing: 10
+
+        TextInput:
+            id: login
+            text: "Login"
+            multiline: False
+            size_hint: None, None
+            height:50
+            width: 140
+            font_size: 20
+
+        ImgButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'login.png'
+            on_release: root.manager.current = 'main'
+
+
+<ImgButton@ButtonBehavior+Image>:
+    size_hint: None, None
+
 <MainScreen>:
     name: 'main'
-    BoxLayout:
-        orientation: "vertical"
-        BoxLayout:
-            Label:
-                text: 'Welcome'
-                font_size: 35
-        BoxLayout:
-            Button:
-                text: 'Messages'
-                font_size: 25
-                on_release: app.root.current = 'mailscreen'
-                canvas:
-                    Color:
-                        rgba: 1,0,0,1
-                    Rectangle:
-                        size: 50, 50
-                        # label: "Post Projects"
-                        id: projct
-                    Rectangle:
-                        size: 50, 50
-                        # label: "Messages"
-                        id: msgs
+
+    canvas:
+        Color:
+            rgb: 0, 0.267, 0
+        Rectangle:
+            size: self.size
+
+    GridLayout:
+        rows: 1
+        size_hint: None, None
+        width: self.minimum_width  # combined width of child widgets
+        height: self.minimum_height # combined height of child widgets
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        spacing: 70
+
+        ProjButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'checkl.png'
+            on_release: root.manager.current = 'prjct'
+
+        MsgButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'msgbox.png'
+            on_release: root.manager.current = 'main'
+
+        CsCButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'community.png'
+            on_release: root.manager.current = 'main'
+
+        CrCButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'Checkmark.png'
+            on_release: root.manager.current = 'main'
+
+        ExitButton:
+            size_hint: None, None
+            size: 100, 63
+            source: 'exit.png'
+            on_release: root.manager.current = 'main'
+
+<ProjButton@ButtonBehavior+Image>:
+    size_hint: None, None
+
+<MsgButton@ButtonBehavior+Image>:
+    size_hint: None, None
+
+<CrCButton@ButtonBehavior+Image>:
+    size_hint: None, None
+
+<CsCButton@ButtonBehavior+Image>:
+    size_hint: None, None
+
+<ExitButton@ButtonBehavior+Image>:
+    size_hint: None, None
 
 <MailScreen>:
     name: 'mailscreen'
@@ -86,10 +132,11 @@
                 on_release: app.root.current = 'main'
 
 <PrjcScreen>:
-    name: 'prjcscreen'
+    name: 'prjct'
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
+            size_hint: None, None
             Label:
                 text: 'Community Projects'
                 font_size: 35

@@ -32,9 +32,14 @@ class Project(db.Model):
     sector =  db.Column(db.Integer, db.ForeignKey('sectors.id'))
     media = db.relationship('Media', secondary=projects_media, backref='projects')
 
-    def __init__(self, id, title, description, baseline, performance_indicator, budget, remark, remark_author, author, posted_date, start_date, est_completion, mark_complete, sector):
+    def __init__(self, id, title, subdistrict,description, baseline, performance_indicator, budget, remark, remark_author, author, posted_date, start_date, est_completion, mark_complete, sector, region, district, village):
         self.id = id
         self.title = title
+        self.sector = sector
+        self.region = region
+        self.district = district
+        self.subdistrict = subdistrict
+        self.village = village
         self.description = description
         self.baseline = baseline
         self.performance_indicator = performance_indicator
@@ -44,7 +49,6 @@ class Project(db.Model):
         self.start_date = start_date
         self.est_completion = est_completion
         self.mark_complete = mark_complete
-        self.sector = sector
 
 
 beneficiaries_media = db.Table('beneficiaries_media',
