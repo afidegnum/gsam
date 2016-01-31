@@ -1,7 +1,7 @@
 import json
 from . import deliverables
 import datetime
-from flask import flash, render_template, request, url_for, redirect, make_response
+from flask import flash, render_template, request, url_for, redirect, make_response, jsonify
 from flask.views import MethodView
 from werkzeug.utils import secure_filename
 from . forms import SectorForm, ProjectForm, BeneficiaryForm, RegionForm
@@ -76,22 +76,20 @@ def deliverables_add():
     return render_template('ginn/deliverables_add.html', forms=forms, form=form, chosen_region=chosen_region, chosen_district=chosen_district, chosen_subdistrict=chosen_subdistrict, chosen_village=chosen_village)
 
 class DistrictAPI(MethodView):
-    def get(self, reg_id):
-        data = [(District.id, District.district) for district in db.session.query(District).filter(District.id=='reg_id')]
-        response = make_response(json.dump(data))
-        response.content_type = 'application/json'
-        return response
+    def get(self, region_id):
+        data = [(District.id, District.district) for district in db.session.query(District).filter(District.id==region_id).all()]
+        return jsonify(districts=data)
 
 class SubDistAPI(MethodView):
     def get(self, dist_id):
-        data = [(Subdistrict.id, Subdistrict.name) for subdistrict in db.session.query(Subdistrict).filter(Subdistrict.districts=='dist_id')]
+        data = [(Subdistrict.id, Subdistrict.name) for subdistrict in db.session.query(Subdistrict).filter(Subdistrict.districts==dist_id)]
         response = make_response(json.dump(data))
         response.content_type = 'application/json'
         return response
 
 class VillageAPI(MethodView):
     def get(self, subd_id):
-        data = [(Village.id, Village.village) for village  in db.session.query(Village).filter(Village.subdistrict_id=='subd_id')]
+        data = [(Village.id, Village.village) for village  in db.session.query(Village).filter(Village.subdistrict_id==subd_id)]
         response = make_response(json.dump(data))
         response.content_type = 'application/json'
         return response

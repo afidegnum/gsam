@@ -53,7 +53,7 @@ app.register_blueprint(csc, url_prefix='/csc')
 app.register_blueprint(location)
 app.register_blueprint(crc)
 app.register_blueprint(deliverables, url_prefix='/deliverables')
-app.add_url_rule('/dist/<int:reg_id>/', view_func=views.DistrictAPI.as_view('models_api'), methods=['GET'])
+app.add_url_rule('/dist/<int:region_id>/', view_func=views.DistrictAPI.as_view('models_api'), methods=['GET'])
 app.add_url_rule('/subd/<int:dist_id>/', view_func=views.SubDistAPI.as_view('subdist__api'), methods=['GET'])
 app.add_url_rule('/vill/<int:subd_id>/', view_func=views.VillageAPI.as_view('village_api'), methods=['GET'])
 

@@ -2,8 +2,9 @@
  * Created by afidegnum on 1/30/16.
  */
 
+
 $("#region_select").change(function() {
-    var make_id = $(this).find(":selected").val();
+    var region_id = $(this).find(":selected").val();
     var request = $.ajax({
         type: 'GET',
         url: '/dist/' + region_id,
@@ -22,7 +23,7 @@ $("#region_select").change(function() {
 });
 
 $("#district_select").change(function() {
-    var make_id = $(this).find(":selected").val();
+    var dist_id = $(this).find(":selected").val();
     var request = $.ajax({
         type: 'GET',
         url: '/subd/' + dist_id,
@@ -41,7 +42,7 @@ $("#district_select").change(function() {
 });
 
 $("#subdist_select").change(function() {
-    var make_id = $(this).find(":selected").val();
+    var subd_id = $(this).find(":selected").val();
     var request = $.ajax({
         type: 'GET',
         url: '/vill/' + village_id,
