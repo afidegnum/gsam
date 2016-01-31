@@ -11,7 +11,6 @@ from flask import Flask, render_template
 from flask.ext.login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
-from project.deliverables import views
 
 
 
@@ -45,6 +44,7 @@ from project.user import user
 from project.location import location
 from project.crc import crc
 from project.deliverables import deliverables
+from project.deliverables import views
 from project.csc import csc
 from project.idea import idea
 #from project.main.views import main_blueprint

@@ -5,10 +5,10 @@
 <form method="post" enctype="multipart/form-data">
     <dl>
         {{ render_field(forms.sector) }}
-        {{ render_field(form.regions, id="make_select") }}
-        {{ render_field(form.districts, id="make_select") }}
-        {{ render_field(form.subdistricts, id="make_select") }}
-        {{ render_field(form.villages, id="make_select") }}
+        {{ render_field(form.regions, id="region_select") }}
+        {{ render_field(form.districts, id="district_select") }}
+        {{ render_field(form.subdistricts, id="subdist_select") }}
+        {{ render_field(form.villages, id="village_select") }}
         {{ render_field(forms.title) }}
         {{ render_field(forms.description) }}
         {{ render_field(forms.baseline) }}
