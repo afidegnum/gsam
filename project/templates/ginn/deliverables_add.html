@@ -5,10 +5,10 @@
 <form method="post" enctype="multipart/form-data">
     <dl>
         {{ render_field(forms.sector) }}
-        {{ render_field(forms.regions) }}
-        {{ render_field(forms.district) }}
-        {{ render_field(forms.subdistrict) }}
-        {{ render_field(forms.village) }}
+        {{ render_field(form.regions, id="make_select") }}
+        {{ render_field(form.districts, id="make_select") }}
+        {{ render_field(form.subdistricts, id="make_select") }}
+        {{ render_field(form.villages, id="make_select") }}
         {{ render_field(forms.title) }}
         {{ render_field(forms.description) }}
         {{ render_field(forms.baseline) }}
@@ -22,3 +22,4 @@
 </form>
 
 {% endblock %}
+<script src="{{ url_for('static', filename='dynamic.js') }}"></script>

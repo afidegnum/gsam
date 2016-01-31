@@ -56,11 +56,12 @@ class ProjectForm(Form):
     #district = QuerySelectField(get_label='district', query_factory=district_lists)
     #subdistrict = QuerySelectField(get_label='name', query_factory=sub_districts)
     #village = QuerySelectField(get_label='village', query_factory=villages_lists)
+    baseline = TextAreaField('Baseline')
     performance_indicator = TextAreaField('Performance Indicator')
     budget = DecimalField("Planned Budget", places=2)
     started = DateTimeField('Project Started Date')
     estimated_completion = DateField('Estimated Completion date', format='%Y-%m-%d')
-    #completed = BooleanField('Completed?', default=False)
+    completed = BooleanField('Completed?', default=False)
     media_gallery = FileField('image', validators=[FileRequired()])
 
 
