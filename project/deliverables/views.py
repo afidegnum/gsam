@@ -1,7 +1,7 @@
 import json
 from . import deliverables
 import datetime
-from flask import flash, render_template, request, url_for, redirect, make_response, jsonify
+from flask import flash, render_template, request, url_for, redirect, make_response, jsonify, current_app
 from flask.views import MethodView
 from werkzeug.utils import secure_filename
 from . forms import SectorForm, ProjectForm, BeneficiaryForm, RegionForm
@@ -43,23 +43,6 @@ def allowed_file(filename):
 def deliverables_add():
     form = RegionForm(request.form)
     form.regions.choices = [('', '--- Select One ---')] + [(region.id, region.region) for region in db.session.query(Region).all()]
-    chosen_region = None
-    chosen_district = None
-    chosen_subdistrict = None
-    chosen_village = None
-    if request.method == 'POST':
-        chosen_region = form.regions.data
-        chosen_district = form.districts.data
-        chosen_subdistrict = form.subdistricts.data
-        chosen_village = form.villages.data
-
-    context = {
-        'form': form,
-        'chosen_region':chosen_region,
-        'chosen_district':chosen_district,
-        'chosen_subdistrict':chosen_subdistrict,
-        'chosen_village': chosen_village
-    }
     forms = ProjectForm()
     if forms.validate_on_submit():
         pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data,
@@ -73,26 +56,23 @@ def deliverables_add():
         pmodel.media.append(media)
         db.session.add(pmodel)
         db.session.commit()
-    return render_template('ginn/deliverables_add.html', forms=forms, form=form, chosen_region=chosen_region, chosen_district=chosen_district, chosen_subdistrict=chosen_subdistrict, chosen_village=chosen_village)
+    return render_template('ginn/deliverables_add.html', forms=forms, form=form)
 
 class DistrictAPI(MethodView):
     def get(self, region_id):
-        data = [(District.id, District.district) for district in db.session.query(District).filter(District.id==region_id).all()]
+        data = [(district.id, district.district) for district in db.session.query(District).filter(District.id==region_id).all()]
+        current_app.logger.debug(data)
         return jsonify(districts=data)
 
 class SubDistAPI(MethodView):
     def get(self, dist_id):
-        data = [(Subdistrict.id, Subdistrict.name) for subdistrict in db.session.query(Subdistrict).filter(Subdistrict.districts==dist_id)]
-        response = make_response(json.dump(data))
-        response.content_type = 'application/json'
-        return response
+        data = [(subdistrict.id, subdistrict.name) for subdistrict in db.session.query(Subdistrict).filter(Subdistrict.districts==dist_id).all()]
+        return jsonify(subdists=data)
 
 class VillageAPI(MethodView):
     def get(self, subd_id):
-        data = [(Village.id, Village.village) for village  in db.session.query(Village).filter(Village.subdistrict_id==subd_id)]
-        response = make_response(json.dump(data))
-        response.content_type = 'application/json'
-        return response
+        data = [(Village.id, Village.village) for village  in db.session.query(Village).filter(Village.subdistrict_id==subd_id).all()]
+        return jsonify(villages=data)
 
 @deliverables.route('/beneficiaries')
 def beneficiaries():

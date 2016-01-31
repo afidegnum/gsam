@@ -10,7 +10,7 @@ $("#region_select").change(function() {
         url: '/dist/' + region_id,
     });
     request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data);
+        var option_list = [["", "--- Select One ---"]].concat(data.districts);
 
         $("district_select").empty();
         for (var i = 0; i < option_list.length; i++) {
@@ -29,7 +29,7 @@ $("#district_select").change(function() {
         url: '/subd/' + dist_id,
     });
     request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data);
+        var option_list = [["", "--- Select One ---"]].concat(data.subdist);
 
         $("subdist_select").empty();
         for (var i = 0; i < option_list.length; i++) {
@@ -48,7 +48,7 @@ $("#subdist_select").change(function() {
         url: '/vill/' + village_id,
     });
     request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data);
+        var option_list = [["", "--- Select One ---"]].concat(data.villages);
 
         $("village_select").empty();
         for (var i = 0; i < option_list.length; i++) {
