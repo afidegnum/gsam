@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US"><head><!-- Created by Artisteer v4.3.0.60745 -->
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+
+    <!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/style.css') }}" media="screen">
+    <!--[if lte IE 7]><link rel="stylesheet" href="{{ url_for('static', filename='layout/style.ie7.css') }}" media="screen" /><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout/style.responsive.css') }}" media="all">
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='layout/favicon.ico') }}" type="image/x-icon">
+    <script src="{{ url_for('static', filename='layout/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='layout/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='layout/script.responsive.js') }}"></script>
+<meta name="description" content="Description">
+<meta name="keywords" content="Keywords">
+
+
+<style>.art-content .art-postcontent-0 .layout-item-0 { color: #4D453F; padding-right: 10px;padding-left: 10px;  }
+.ie7 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+.ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+
+</style></head>
+<body>
+<div id="art-main">
+<header class="art-header">
+
+    <div class="art-shapes">
+        
+            </div>
+
+<h1 class="art-headline">
+    <a href="/">GSAM</a>
+</h1>
+<h2 class="art-slogan">Ghana Strenghening Accountability Mechanism</h2>
+
+
+
+
+
+<nav class="art-nav">
+    <ul class="art-hmenu"><li><a href="home.html" class="active">Home</a><ul class="active"><li><a href="home/account.html">Account</a></li></ul></li><li><a href="contacts.html">Contacts</a></li><li><a href="map.html">Map</a></li></ul> 
+    </nav>
+
+                    
+</header>
+<div class="art-sheet clearfix">
+            <div class="art-layout-wrapper">
+                <div class="art-content-layout">
+                    <div class="art-content-layout-row">
+                        <div class="art-layout-cell art-content"><article class="art-post art-article">
+                                
+                                                
+                <div class="art-postcontent art-postcontent-0 clearfix"><div class="art-content-layout">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-0" style="width: 100%" >
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {{ category }}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+        {% block account %}{% endblock %}<br>
+    {% block register %}{% endblock %}
+    {% block mmembers %}{% endblock %}
+    </div>
+    </div>
+</div>
+</div>
+                                
+                
+
+</article></div>
+                    </div>
+                </div>
+            </div><footer class="art-footer">
+<div class="art-content-layout">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-0" style="width: 30%">
+        <p style="font: 20px 'Trebuchet MS';">Information</p>
+        <br>
+        <ul>
+        <li><a href="#">ABOUT US</a></li>
+        <li><a href="#">WORK TEAM</a></li>
+        <li><a href="#">WHAT WE DO</a></li>
+        <li><a href="#">CLIENTS</a></li>
+        <li><a href="#">CONTACT US</a></li>
+        </ul>
+    </div><div class="art-layout-cell layout-item-0" style="width: 37%">
+        <p style="font: 20px 'Trebuchet MS';">Our Solutions</p>
+        <br>
+        <ul>
+        <li><a href="#">STRATEGY AND MARKETING</a></li>
+        <li><a href="#">OPERATIONS CONSULTING</a></li>
+        <li><a href="#">INFORMATION TECHNOLOGY</a></li>
+        <li><a href="#">TECHNOLOGY AND INNOVATION</a></li>
+        <li><a href="#">MARKET ANALYTICS</a></li>
+        </ul>
+    </div><div class="art-layout-cell layout-item-0" style="width: 33%">
+        <p style="font: 20px 'Trebuchet MS';">Follow Us</p>
+        <br>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='layout/images/1304593514_rss.png') }}" style="float: left; margin-right: 10px"></p>
+        <p style="padding: 10px 0 15px">RSS</p>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='layout/images/1304593517_facebook.png') }}" style="float: left; margin-right: 10px" class=""></p>
+        <p style="padding: 10px 0 15px">Facebook</p>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='layout/images/1304593520_twitter.png') }}" style="float: left; margin-right: 10px"></p>
+        <p style="padding: 12px 0 15px">Twitter</p>
+    </div>
+    </div>
+</div>
+<div class="art-content-layout">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell" style="width: 100%">
+        <div class="footerimg"><img src="{{ url_for('static', filename='layout/images/CARE_logo.png') }}" width="238" height="78" alt=""/><img src="{{ url_for('static', filename='layout/images/ibis-web-logo-ghana-484x101_1.gif') }}" width="196" height="100" alt=""/><img src="{{ url_for('static', filename='layout/images/isodec_logo.gif') }}" width="217" height="79" alt=""/><img src="{{ url_for('static', filename='layout/images/mcw_logo.png') }}" width="268" height="119" alt=""/></div>
+        
+        <br>
+        <br>
+    </div>
+    </div>
+</div>
+
+</footer>
+
+    </div>
+</div>
+
+
+</body></html>

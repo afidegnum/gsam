@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US"><head><!-- Created by Artisteer v4.3.0.60745 -->
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+
+    <!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ginn/style.css') }}" media="screen">
+    <!--[if lte IE 7]><link rel="stylesheet"  href="{{ url_for('static', filename='ginn/style.ie7.css') }} " media="screen" /><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ginn/style.responsive.css') }}" media="all">
+
+
+    <script src="{{ url_for('static', filename='ginn/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='ginn/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='ginn/script.responsive.js') }}"></script>
+    {% block upload %}{% endblock %}
+
+<meta name="description" content="Description">
+<meta name="keywords" content="Keywords">
+
+<script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+<style>.art-content .art-postcontent-0 .layout-item-0 { margin-bottom: 10px;  }
+.art-content .art-postcontent-0 .layout-item-1 { border-spacing: 10px 0px; border-collapse: separate;  }
+.art-content .art-postcontent-0 .layout-item-2 { padding: 0px;  }
+.ie7 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+.ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+
+</style></head>
+<body>
+<div id="art-main">
+<header class="art-header">
+
+    <div class="art-shapes">
+        
+            </div>
+
+<h1 class="art-headline">
+    <a href="/">GSAM</a>
+</h1>
+<h2 class="art-slogan">Accountability &amp; Transparency</h2>
+
+
+
+
+
+                
+                    
+</header>
+<div class="art-sheet clearfix">
+<nav class="art-nav">
+    <ul class="art-hmenu"><li><a href="home.html" class="active">Home</a></li><li><a href="activities.html">Activities</a></li><li><a href="ghideas.html">GhIdeas</a></li><li><a href="projects.html">Projects</a></li><li><a href="about-us.html">About us</a></li><li><a href="contacts.html">Contacts</a></li></ul> 
+    </nav>
+<div class="art-layout-wrapper">
+                <div class="art-content-layout">
+                    <div class="art-content-layout-row">
+                        <div class="art-layout-cell art-content"><article class="art-post art-article">
+                                
+                                                
+                <div class="art-postcontent art-postcontent-0 clearfix"><div class="art-content-layout-wrapper layout-item-0">
+<div class="art-content-layout layout-item-1">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-2" style="width: 100%" >
+        <p>basic</p>
+    </div>
+    </div>
+</div>
+</div>
+<div class="art-content-layout-wrapper layout-item-0">
+<div class="art-content-layout layout-item-1">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-2" style="width: 25%" >
+        <h5><span style="font-size: 28px;">Projects in Regions</span></h5>
+        <h2><span style="color: rgb(154, 77, 6);">Greater&nbsp;</span></h2><p><br></p><h2>
+        </h2><h2><a href="#" class="art-button">Read more</a></h2>
+    </div><div class="art-layout-cell layout-item-2" style="width: 50%" >
+        <h4></h4>
+        {% block body %}{% endblock %}<br><br>
+         <a href="#">more</a>
+    </div><div class="art-layout-cell layout-item-2" style="width: 25%" >
+        <p>right</p>
+    </div>
+    </div>
+</div>
+</div>
+<div class="art-content-layout-wrapper layout-item-0">
+<div class="art-content-layout layout-item-1">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-2" style="width: 100%" >
+        <p>buttom</p>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+                                
+                
+
+</article></div>
+                    </div>
+                </div>
+            </div><footer class="art-footer">
+<div class="art-content-layout">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell layout-item-0" style="width: 30%">
+        <p style="font: 20px 'Trebuchet MS';">Information</p>
+        <br>
+        <ul>
+        <li><a href="#">ABOUT US</a></li>
+        <li><a href="#">WORK TEAM</a></li>
+        <li><a href="#">WHAT WE DO</a></li>
+        <li><a href="#">CLIENTS</a></li>
+        <li><a href="#">CONTACT US</a></li>
+        </ul>
+    </div><div class="art-layout-cell layout-item-0" style="width: 37%">
+        <p style="font: 20px 'Trebuchet MS';">Our Solutions</p>
+        <br>
+        <ul>
+        <li><a href="#">STRATEGY AND MARKETING</a></li>
+        <li><a href="#">OPERATIONS CONSULTING</a></li>
+        <li><a href="#">INFORMATION TECHNOLOGY</a></li>
+        <li><a href="#">TECHNOLOGY AND INNOVATION</a></li>
+        <li><a href="#">MARKET ANALYTICS</a></li>
+        </ul>
+    </div><div class="art-layout-cell layout-item-0" style="width: 33%">
+        <p style="font: 20px 'Trebuchet MS';">Follow Us</p>
+        <br>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='images/1304593514_rss.png') }}" style="float: left; margin-right: 10px" class=""></p>
+        <p style="padding: 10px 0 15px">RSS</p>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='images/1304593517_facebook.png') }}" style="float: left; margin-right: 10px" class=""></p>
+        <p style="padding: 10px 0 15px">Facebook</p>
+        <p><img width="32" height="32" alt="" src="{{ url_for('static', filename='images/1304593520_twitter.png') }}" style="float: left; margin-right: 10px"></p>
+        <p style="padding: 12px 0 15px">Twitter</p>
+    </div>
+    </div>
+</div>
+<div class="art-content-layout">
+    <div class="art-content-layout-row">
+    <div class="art-layout-cell" style="width: 100%">
+        <p><br></p>
+        <p style="text-align: center;">Icons by <a href="http://www.iconeden.com/">IconEden</a>, <a href="http://www.wpzoom.com/">David Ferreira</a> and <a href="http://dezinerfolio.com/">Navdeep Raj</a></p>
+        <br>
+        <br>
+    </div>
+    </div>
+</div>
+
+</footer>
+
+    </div>
+</div>
+
+
+</body></html>

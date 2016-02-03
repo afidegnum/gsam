@@ -12,6 +12,7 @@ from project.media.models import Media
 from flask.views import MethodView
 
 
+
 @deliverables.route('/sectors', methods=['GET', 'POST'])
 def sectors():
     sform = SectorForm()
@@ -42,12 +43,12 @@ def allowed_file(filename):
 @deliverables.route('/add', methods=['GET', 'POST'])
 def deliverables_add():
     form = RegionForm(request.form)
-    form.regions.choices = [('', '--- Select One ---')] + [(region.id, region.region) for region in db.session.query(Region).all()]
+    form.regions.choices = [('', '--- Select Region ---')] + [(region.id, region.region) for region in db.session.query(Region).all()]
     forms = ProjectForm()
     if forms.validate_on_submit():
         pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data,
                          budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data,
-                         sector=forms.sector.data ,region=form.regions.data, district=form.district.data, subdistrict=form.subdistrict.data, village=form.village.data,mark_complete=False)
+                         sector=forms.sector.data ,region=form.regions.data, district=form.districts.data, subdistrict=form.subdistricts.data, village=form.villages.data,mark_complete=False)
         media = request.files['media_gallery']
         if media and allowed_file(media.filename):
             files = secure_filename(media.filename)
@@ -60,19 +61,18 @@ def deliverables_add():
 
 class DistrictAPI(MethodView):
     def get(self, region_id):
-        data = [(district.id, district.district) for district in db.session.query(District).filter(District.id==region_id).all()]
-        current_app.logger.debug(data)
-        return jsonify(districts=data)
+        data = [(district.id, district.district) for district in District.query.filter(District.region_id==region_id)]
+        return jsonify(data)
 
 class SubDistAPI(MethodView):
     def get(self, dist_id):
-        data = [(subdistrict.id, subdistrict.name) for subdistrict in db.session.query(Subdistrict).filter(Subdistrict.districts==dist_id).all()]
-        return jsonify(subdists=data)
+        data = [(subdistrict.id, subdistrict.name) for subdistrict in Subdistrict.query.filter(Subdistrict.districts==dist_id)]
+        return jsonify(data)
 
 class VillageAPI(MethodView):
     def get(self, subd_id):
-        data = [(Village.id, Village.village) for village  in db.session.query(Village).filter(Village.subdistrict_id==subd_id).all()]
-        return jsonify(villages=data)
+        data = [(village.id, village.village) for village in Village.query.filter(Village.subdistrict_id==subd_id)]
+        return jsonify(data)
 
 @deliverables.route('/beneficiaries')
 def beneficiaries():

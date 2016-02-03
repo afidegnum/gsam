@@ -1,61 +1,30 @@
-/**
- * Created by afidegnum on 1/30/16.
- */
+function evaluateChange(select, url, selectDescription, resultSelectId) {
+    var selectedId = select.value;
+    
+    $.ajax({
+        type: 'GET',
+        url: url +'/' + selectedId + '/'
+    }).done(function(data) {
+        var option_list = [
+            ["", "--- Select "+ selectDescription +" ---"]
+        ].concat(Object.keys(data).map(function(key) {
+            return [key, data[key]]
+        }));
 
+        $(resultSelectId).html($.map(option_list, function(option) {
+            return $("<option></option>").attr("value", option[0]).text(option[1]);
+        }));
+    });
+}
 
 $("#region_select").change(function() {
-    var region_id = $(this).find(":selected").val();
-    var request = $.ajax({
-        type: 'GET',
-        url: '/dist/' + region_id,
-    });
-    request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data.districts);
-
-        $("district_select").empty();
-        for (var i = 0; i < option_list.length; i++) {
-            $("#district_select").append(
-                $("<option></option>").attr(
-                    "value", option_list[i][0]).text(option_list[i][1])
-            );
-        }
-    });
+	evaluateChange(this, '/dist', 'District', '#district_select');
 });
 
 $("#district_select").change(function() {
-    var dist_id = $(this).find(":selected").val();
-    var request = $.ajax({
-        type: 'GET',
-        url: '/subd/' + dist_id,
-    });
-    request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data.subdist);
-
-        $("subdist_select").empty();
-        for (var i = 0; i < option_list.length; i++) {
-            $("#subdist_select").append(
-                $("<option></option>").attr(
-                    "value", option_list[i][0]).text(option_list[i][1])
-            );
-        }
-    });
+	evaluateChange(this, '/subd', 'Subdistrict', '#subdist_select');
 });
 
 $("#subdist_select").change(function() {
-    var subd_id = $(this).find(":selected").val();
-    var request = $.ajax({
-        type: 'GET',
-        url: '/vill/' + village_id,
-    });
-    request.done(function(data){
-        var option_list = [["", "--- Select One ---"]].concat(data.villages);
-
-        $("village_select").empty();
-        for (var i = 0; i < option_list.length; i++) {
-            $("#village_select").append(
-                $("<option></option>").attr(
-                    "value", option_list[i][0]).text(option_list[i][1])
-            );
-        }
-    });
+	evaluateChange(this, '/vill', 'Village', '#village_select');
 });

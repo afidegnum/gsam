@@ -27,12 +27,15 @@ bcrypt = Bcrypt(app)
 ####################
 #### extensions ####
 ####################
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 login_manager = LoginManager()
 login_manager.init_app(app)
 Bootstrap(app)
 db = SQLAlchemy(app)
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+pas = os.path.join(APP_ROOT, 'static/uploads/')
 
 
 ###################
@@ -47,11 +50,13 @@ from project.deliverables import deliverables
 from project.deliverables import views
 from project.csc import csc
 from project.idea import idea
+from project.media import media
 #from project.main.views import main_blueprint
 app.register_blueprint(user, url_prefix='/account')
 app.register_blueprint(csc, url_prefix='/csc')
 app.register_blueprint(location)
 app.register_blueprint(crc)
+app.register_blueprint(media)
 app.register_blueprint(deliverables, url_prefix='/deliverables')
 app.add_url_rule('/dist/<int:region_id>/', view_func=views.DistrictAPI.as_view('district_api'), methods=['GET'])
 app.add_url_rule('/subd/<int:dist_id>/', view_func=views.SubDistAPI.as_view('subdist_api'), methods=['GET'])

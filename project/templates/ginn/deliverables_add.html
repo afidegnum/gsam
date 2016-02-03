@@ -4,21 +4,33 @@
 {% from 'ginn/_formtool.html' import render_field %}
 <form method="post" enctype="multipart/form-data">
     <dl>
+        <fieldset>
+        <legend>Select Location:</legend>
+        {{ render_field(form.regions, id="region_select", class="region") }}
+        {{ render_field(form.districts, id="district_select",class="district") }}
+        {{ render_field(form.subdistricts, id="subdist_select", class="subdistrict") }}
+        {{ render_field(form.villages, id="village_select", class="village") }}
+            </fieldset>
+        <fieldset>
+    <legend>Service Sector:</legend>
         {{ render_field(forms.sector) }}
-        {{ render_field(form.regions, id="region_select") }}
-        {{ render_field(form.districts, id="district_select") }}
-        {{ render_field(form.subdistricts, id="subdist_select") }}
-        {{ render_field(form.villages, id="village_select") }}
+            </fieldset>
+        <fieldset>
+    <legend>Project Details:</legend>
         {{ render_field(forms.title) }}
-        {{ render_field(forms.description) }}
+        {{ render_field(forms.description, id="textarea", class="textarea") }}
         {{ render_field(forms.baseline) }}
         {{ render_field(forms.performance_indicator) }}
         {{ render_field(forms.budget) }}
-        {{ render_field(forms.started) }}
-        {{ render_field(forms.estimated_completion) }}
+        {{ render_field(forms.started, class="datepicker") }}
+        {{ render_field(forms.estimated_completion, class="datepicker") }}
         {{ render_field(forms.media_gallery) }}
+            </fieldset>
     </dl>
     <p><input type="submit" value="Add"></p>
 </form>
 <script src="{{ url_for('static', filename='dynamic.js') }}"></script>
+          <script type="text/javascript">
+        CKEDITOR.replace( 'textarea' );
+      </script>>
 {% endblock %}

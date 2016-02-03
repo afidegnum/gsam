@@ -6,9 +6,8 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, NumberRange
 from project.deliverables.models import Sector, Project, Activity
 from project import db
-#from project.crc.models import CrC
-from wtforms import StringField, TextAreaField, validators, SubmitField, SelectField, IntegerField, DateTimeField, \
-    RadioField, BooleanField, DecimalField, DateField
+from wtforms import StringField, TextAreaField, validators, SubmitField, SelectField, IntegerField, RadioField, BooleanField, DecimalField, DateField
+from wtforms.fields.html5 import DateField
 
 
 
@@ -44,7 +43,7 @@ class RegionForm(Form):
     districts = SelectField(u'', choices=())
     subdistricts = SelectField(u'', choices=())
     villages = SelectField(u'', choices=())
-    baseline = TextAreaField('Baseline')
+
 
 
 
@@ -59,10 +58,10 @@ class ProjectForm(Form):
     baseline = TextAreaField('Baseline')
     performance_indicator = TextAreaField('Performance Indicator')
     budget = DecimalField("Planned Budget", places=2)
-    started = DateTimeField('Project Started Date')
+    started = DateField('Project Started Date', format='%Y-%m-%d')
     estimated_completion = DateField('Estimated Completion date', format='%Y-%m-%d')
     completed = BooleanField('Completed?', default=False)
-    media_gallery = FileField('image', validators=[FileRequired()])
+    media_gallery = FileField('image', _name="file")
 
 
 class BeneficiaryForm(Form):
