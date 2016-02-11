@@ -1,7 +1,6 @@
-from project import db
-from flask.ext.sqlalchemy import SQLAlchemy
-from project.location.models import Region
+from flask_sqlalchemy import SQLAlchemy
 from project.media.models import Media
+db = SQLAlchemy()
 
 
 projects_media = db.Table('project_media',

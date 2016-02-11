@@ -1,5 +1,7 @@
-from project import db
+#from project import db
+from flask_sqlalchemy import SQLAlchemy
 from project.deliverables.models import Project
+db = SQLAlchemy()
 
 class Region(db.Model):
     __tablename__ = 'regions'
