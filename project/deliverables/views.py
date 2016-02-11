@@ -1,16 +1,16 @@
 import json
 from . import deliverables
 import datetime
-from flask import flash, render_template, request, url_for, redirect, make_response, jsonify, current_app
+import os
+from flask import flash, render_template, request, url_for, redirect, make_response, jsonify, current_app, Flask, send_from_directory
 from flask.views import MethodView
 from werkzeug.utils import secure_filename
 from . forms import SectorForm, ProjectForm, BeneficiaryForm, RegionForm
-from project import db
+from project import db, app
 from project.deliverables.models import Sector, Project, Beneficiary
 from project.location.models import Region, District, Subdistrict, Village
 from project.media.models import Media
 from flask.views import MethodView
-
 
 
 @deliverables.route('/sectors', methods=['GET', 'POST'])
@@ -46,18 +46,31 @@ def deliverables_add():
     form.regions.choices = [('', '--- Select Region ---')] + [(region.id, region.region) for region in db.session.query(Region).all()]
     forms = ProjectForm()
     if forms.validate_on_submit():
-        pmodel = Project(title=forms.title.data, description=forms.description.data, baseline=forms.baseline.data, performance_indicator=forms.performance_indicator.data,
-                         budget=forms.budget.data, author='mainuser', posted_date=datetime.datetime.utcnow(), start_date=forms.started.data, est_completion=forms.estimated_completion.data,
-                         sector=forms.sector.data ,region=form.regions.data, district=form.districts.data, subdistrict=form.subdistricts.data, village=form.villages.data,mark_complete=False)
-        media = request.files['media_gallery']
-        if media and allowed_file(media.filename):
-            files = secure_filename(media.filename)
-            return media.save(files)
-        media = Media()
-        pmodel.media.append(media)
+        pmodel = Project(title=forms.title.data,
+                         description=forms.description.data,
+                         baseline=forms.baseline.data,
+                         performance_indicator=forms.performance_indicator.data,
+                         budget=forms.budget.data,
+                         author=1,
+                         posted_date=datetime.datetime.utcnow(),
+                         start_date=forms.started.data,
+                         est_completion=forms.estimated_completion.data,
+                         sector=forms.sector.data.id,
+                         region=form.regions.data,
+                         district=form.districts.data,
+                         subdistrict=form.subdistricts.data,
+                         village=form.villages.data)
         db.session.add(pmodel)
         db.session.commit()
+        flash('New entry was successfully posted', 'success')
+        return redirect(url_for('deliverables.deliv_view', cid=pmodel.id))
     return render_template('ginn/deliverables_add.html', forms=forms, form=form)
+
+@deliverables.route('/<int:cid>')
+def deliv_view(cid):
+    projects = Project.query.filter(Project.id == cid).all()
+
+    return render_template('ginn/deliview.html', projects = projects)
 
 class DistrictAPI(MethodView):
     def get(self, region_id):

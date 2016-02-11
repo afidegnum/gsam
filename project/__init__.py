@@ -24,19 +24,30 @@ app.config.from_object(config.DevelopmentConfig)
 bcrypt = Bcrypt(app)
 
 
+
 ####################
 #### extensions ####
 ####################
-UPLOAD_FOLDER = 'static/uploads'
+#UPLOAD_FOLDER = 'static/uploads'
+
+#os.path.abspath("../"+UPLOAD_FOLDER+file_name)
+#basedir = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.abspath(os.path.dirname(__file__)+'/static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 login_manager = LoginManager()
 login_manager.init_app(app)
 Bootstrap(app)
 db = SQLAlchemy(app)
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-pas = os.path.join(APP_ROOT, 'static/uploads/')
 
+
+
+
+app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 ###################
 ### blueprints ####

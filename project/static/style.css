@@ -362,6 +362,13 @@ body
     background-color: #0099FF;
 }
 
+#Thumb > img {
+    height: 100px;
+    margin-left: 4px;
+    margin-right: 0;
+    width: 96px;
+}
+
 .art-header:before, 
 #art-header-bg:before, 
 .art-layout-cell:before, 

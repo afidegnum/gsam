@@ -1,0 +1,97 @@
+
+{% extends "ginn/index.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='jsup/static/js/jquery.ui.widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='jsup/static/js/jquery.fileupload.js') }}"></script>
+     <script src="{{ url_for('static', filename='jsup/static/js/jquery.fileupload-process.js') }}"></script>
+     <script src="{{ url_for('static', filename='jsup/static/js/jquery.fileupload-ui.js') }}"></script>
+
+<script>
+    $(function(){
+        $('#fileupload').fileupload({
+            url: 'upload',
+            dataType: 'json',
+            add: function (e, data) {
+                data.submit();
+            },
+            success:function(response,status) {
+                console.log(response.filename);
+                var filePath = 'static/uploads/' + response.filename;
+                var img = $('<img />', {
+                    src: filePath
+                    });
+                var input = $('<input />', {
+                        type: 'hidden',
+                        id: 'filePath',
+                        value: filePath
+                    });
+                img.add(input).appendTo($('#Thumb'));
+                $('#filePath').val(filePath);
+                console.log('success');
+            },
+            error:function(error){
+                console.log(error);
+            }
+        });
+    })
+</script>
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: #ffd738;
+            cursor: inherit;
+            display: block;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+
+
+
+<div class="form-group">
+  <label for="txtPost">Upload Files</label>
+
+<div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="fileupload" name="file" multiple>
+                    </span>
+                </span>
+		<div class="container" id="Thumb">
+		</div>
+            </div>
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "ginn/index.html" %}
+{% block body %}
+{% for project in projects %}
+    {{ project.title }}<br>
+    {{ project.description }}<br>
+    {{ project.baseline }}<br>
+    {{ project.performance_indicator }}<br>
+    {{ project.budget }}<br>
+    {{ project.author }}<br>
+    {{ project.posted_date }}<br>
+    {{ project.start_date }}<br>
+    {{ project.est_completion }}<br>
+    {{ project.sector }}<br>
+    {{ project.region }}<br>
+    {{ project.district }}<br>
+    {{ project.subdistrict }}<br>
+    {{ project.village }}<br>
+    {% endfor %}
+{% endblock %}

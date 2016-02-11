@@ -1,5 +1,6 @@
 from project import db
 from flask.ext.sqlalchemy import SQLAlchemy
+from project.location.models import Region
 from project.media.models import Media
 
 
@@ -14,6 +15,7 @@ class Project(db.Model):
     description = db.Column(db.Text)
     #---------------------------
     region = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    regions = db.relationship(Region, backref='projects')
     district  = db.Column(db.Integer, db.ForeignKey('districts.id'))
     subdistrict  = db.Column(db.Integer, db.ForeignKey('subdistricts.id'))
     village = db.Column(db.Integer, db.ForeignKey('villages.id'))
@@ -32,8 +34,7 @@ class Project(db.Model):
     sector =  db.Column(db.Integer, db.ForeignKey('sectors.id'))
     media = db.relationship('Media', secondary=projects_media, backref='projects')
 
-    def __init__(self, id, title, subdistrict,description, baseline, performance_indicator, budget, remark, remark_author, author, posted_date, start_date, est_completion, mark_complete, sector, region, district, village):
-        self.id = id
+    def __init__(self, title, subdistrict, description, baseline, performance_indicator, budget, author, posted_date, start_date, est_completion, sector, region, district, village):
         self.title = title
         self.sector = sector
         self.region = region
@@ -48,7 +49,6 @@ class Project(db.Model):
         self.posted_date = posted_date
         self.start_date = start_date
         self.est_completion = est_completion
-        self.mark_complete = mark_complete
 
 
 beneficiaries_media = db.Table('beneficiaries_media',
